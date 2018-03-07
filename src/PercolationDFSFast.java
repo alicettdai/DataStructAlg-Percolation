@@ -86,15 +86,4 @@ public class PercolationDFSFast extends PercolationDFS {
 			    }
 			    return super.isFull(row, col);
 	}
-
-	@Override
-	public boolean percolates() {
-		return super.percolates();
-	}
-
-	@Override
-	public int numberOfOpenSites() {
-		return super.numberOfOpenSites();
-	}
-
 }
