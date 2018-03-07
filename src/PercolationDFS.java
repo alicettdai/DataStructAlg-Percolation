@@ -64,7 +64,7 @@ public class PercolationDFS implements IPercolate {
 	protected void updateOnOpen(int row, int col) {
 		clearFull();
 		for (int k = 0; k < myGrid[0].length; k++)
-			dfs(0, k);
+			dfs(0, k); //ON THE FIRST ROW
 	}
 
 	public boolean percolates() {
@@ -87,12 +87,13 @@ public class PercolationDFS implements IPercolate {
 		// out of bounds?
 		if (! inBounds(row,col)) return;
 		
-		// full or open, don't process
+		// full or not open, don't process
 		if (isFull(row, col) || !isOpen(row, col))
 			return;
 		
+		//this leaves us with a point that's in bounds, is not full, but is open, and is definitely next to something that's open
 		myGrid[row][col] = FULL;
-		dfs(row - 1, col);
+		dfs(row - 1, col); //then checks the surrounding ones
 		dfs(row, col - 1);
 		dfs(row, col + 1);
 		dfs(row + 1, col);

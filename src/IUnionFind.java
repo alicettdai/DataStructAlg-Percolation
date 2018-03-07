@@ -22,7 +22,7 @@ public interface IUnionFind {
 	/**
 	 * Returns id of component corresponding to element x
 	 */
-	public int find(int x);
+	public int find(int x); 
 
 	/**
 	 * Returns true iff p and q are in the same set, false otherwise

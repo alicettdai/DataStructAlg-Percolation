@@ -21,7 +21,7 @@ public class QuickFind implements IUnionFind {
 	 * Default constructor
 	 */
 	public QuickFind() {
-		this(10)	;
+		this(10)	; //this object has 10
 	}
 
 	/**

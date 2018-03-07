@@ -15,12 +15,15 @@ public class InteractivePercolationVisualizer {
 
         // N-by-N percolation system
     		int N = 10;
+    		IUnionFind finder = new QuickUWPC();
+    		//IUnionFind finder = new QuickFind(); //you can't instantiate an interface because the interface is a skeleton, so you call a class that uses the interface
+    		finder.initialize(N*N+2);
     		if (args.length > 0) {
     			N = Integer.parseInt(args[0]);
     		}
   
-    		IPercolate perc = new PercolationDFS(N);
-        //IPercolate perc = new PercolationUF(N); //new PercolationUF(N);
+    		//IPercolate perc = new PercolationDFSFast(N);
+        IPercolate perc = new PercolationUF(N, finder); //new PercolationUF(N);
     		
         System.out.println(N);
 
