@@ -1,4 +1,4 @@
-import java.util.NoSuchElementException;
+
 
 /**
  * Simulate a system to see its Percolation Threshold, but use a UnionFind
@@ -59,7 +59,7 @@ public class PercolationUF implements IPercolate {
 	 * based on row-major ordering of cells in a two-dimensional grid. However,
 	 * if (row,col) is out-of-bounds, return OUT_BOUNDS.
 	 */
-	public int getIndex(int row, int col) {
+	private int getIndex(int row, int col) {
 		if (! inBounds(row,col)) {
 			return OUT_BOUNDS;
 		}
@@ -71,7 +71,7 @@ public class PercolationUF implements IPercolate {
 	@Override
 	public void open(int i, int j) {
 		if (! inBounds(i,j)) {
-	        throw new NoSuchElementException("Out of bounds, mate");
+			throw new IndexOutOfBoundsException("Out of bounds, mate");
 		}
 		if (myGrid[i][j]) { //makes sure to not reopen something that's already open
 			return;
@@ -85,7 +85,7 @@ public class PercolationUF implements IPercolate {
 	@Override
 	public boolean isOpen(int i, int j) {
 		if (! inBounds(i,j)) {
-	        throw new NoSuchElementException("Out of bounds, mate");
+			throw new IndexOutOfBoundsException("Out of bounds, mate");
 		}
 		
 		//if it's open then it's true
@@ -95,7 +95,7 @@ public class PercolationUF implements IPercolate {
 	@Override
 	public boolean isFull(int i, int j) {
 		if (! inBounds(i,j)) {
-	        throw new NoSuchElementException("Out of bounds, mate");
+			throw new IndexOutOfBoundsException("Out of bounds, mate");
 		}
 		
 		if (!isOpen(i,j)) { //if it's not full
@@ -120,7 +120,7 @@ public class PercolationUF implements IPercolate {
 	}
 	
 	//helper method that is called in open
-	protected void updateOnOpen(int row, int col) {
+	private void updateOnOpen(int row, int col) {
 		//get the Indices 
 		int x = getIndex(row,col);
 		
@@ -153,7 +153,7 @@ public class PercolationUF implements IPercolate {
 		}
 	}
 	
-	protected boolean inBounds(int row, int col) {
+	private boolean inBounds(int row, int col) {
 		if (row < 0 || row >= myGrid.length) return false;
 		if (col < 0 || col >= myGrid[0].length) return false;
 		return true;

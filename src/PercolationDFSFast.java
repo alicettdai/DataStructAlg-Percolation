@@ -1,5 +1,3 @@
-import java.util.NoSuchElementException;
-
 public class PercolationDFSFast extends PercolationDFS {
 	
 	//A constructor that makes a call to the superclass constructor
@@ -9,11 +7,11 @@ public class PercolationDFSFast extends PercolationDFS {
 
 	//Update on open should just check if the cells around the newly opened cell are open 
 	@Override
-	public void updateOnOpen(int row, int col) {
+	protected void updateOnOpen(int row, int col) {
 	//now that a cell is open, to check if it's full, one of its neighbors needs to be full
 		//if it's out of bounds
 		if (! inBounds(row,col)) {
-	        throw new NoSuchElementException("Out of bounds, mate");
+	        throw new IndexOutOfBoundsException("Out of bounds, mate");
 		}
 		
 		//if it's on the top then it definitely is full
@@ -65,17 +63,17 @@ public class PercolationDFSFast extends PercolationDFS {
 	public void open(int row, int col) {
 		//if not in bounds, throw an exception
 		if (! inBounds(row,col)) {
-	        throw new NoSuchElementException("Out of bounds, mate");
+			throw new IndexOutOfBoundsException("Out of bounds, mate");
 	    }
 	    super.open(row, col); 
 		
 	}
 
 	@Override
-	public boolean isOpen(int row, int col)  {
+	private boolean isOpen(int row, int col)  {
 		//if not in bounds, throw an exception
 		if (!inBounds(row,col)) {
-	        throw new NoSuchElementException("Out of bounds, mate");
+			throw new IndexOutOfBoundsException("Out of bounds, mate");
 	    }
 	    return super.isOpen(row, col);
 	}
@@ -84,18 +82,18 @@ public class PercolationDFSFast extends PercolationDFS {
 	public boolean isFull(int row, int col) {
 		//if not in bounds, throw an exception
 				if (! inBounds(row,col)) {
-			        throw new NoSuchElementException("Out of bounds, mate");
+					throw new IndexOutOfBoundsException("Out of bounds, mate");
 			    }
 			    return super.isFull(row, col);
 	}
 
 	@Override
-	public boolean percolates() {
+	private boolean percolates() {
 		return super.percolates();
 	}
 
 	@Override
-	public int numberOfOpenSites() {
+	private int numberOfOpenSites() {
 		return super.numberOfOpenSites();
 	}
 
