@@ -70,7 +70,7 @@ public class PercolationDFSFast extends PercolationDFS {
 	}
 
 	@Override
-	private boolean isOpen(int row, int col)  {
+	public boolean isOpen(int row, int col)  {
 		//if not in bounds, throw an exception
 		if (!inBounds(row,col)) {
 			throw new IndexOutOfBoundsException("Out of bounds, mate");
@@ -88,12 +88,12 @@ public class PercolationDFSFast extends PercolationDFS {
 	}
 
 	@Override
-	private boolean percolates() {
+	public boolean percolates() {
 		return super.percolates();
 	}
 
 	@Override
-	private int numberOfOpenSites() {
+	public int numberOfOpenSites() {
 		return super.numberOfOpenSites();
 	}
 
