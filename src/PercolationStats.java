@@ -14,15 +14,13 @@ public class PercolationStats {
 	//Instance variables 
 	public static int RANDOM_SEED = 1234;
 	public static Random ourRandom = new Random(RANDOM_SEED);
-	public double[] percThresh; //calculates threshold
-	public int myT;
-	public int myN;
+	private double[] percThresh; //calculates threshold
+	private int myT;
 
 	// Constructor will perform T experiments 
 	public PercolationStats(int N, int T) {
 		if (N<0 || T<0) throw new IndexOutOfBoundsException("Out of bounds, mate");
 		myT=T;
-		myN=N;
 		//Initialize a counter, the percThresh array and the coordinate array
 		int i = 0;
 		percThresh = new double[T];
