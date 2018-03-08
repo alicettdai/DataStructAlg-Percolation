@@ -14,17 +14,18 @@ public class PercolationStats {
 	//Instance variables 
 	public static int RANDOM_SEED = 1234;
 	public static Random ourRandom = new Random(RANDOM_SEED);
-	public HashMap<Integer, Integer[]> myMap; //helps translate elements to coordinate numbers
-	public int[] percThresh; //calculates threshold
+	public double[] percThresh; //calculates threshold
 	public int myT;
+	public int myN;
 
 	// Constructor will perform T experiments 
 	public PercolationStats(int N, int T) {
+		if (N<0 || T<0) throw new IndexOutOfBoundsException("Out of bounds, mate");
 		myT=T;
+		myN=N;
 		//Initialize a counter, the percThresh array and the coordinate array
 		int i = 0;
-		percThresh = new int[T-1];
-		Integer[] coordinates = new Integer[2]; //initialize the coordinates
+		percThresh = new double[T];
 		
 		//Performs T experiments 
 		while (i<T) {
@@ -32,51 +33,49 @@ public class PercolationStats {
 		IUnionFind finder = new QuickFind();
 		IPercolate perc = new PercolationUF(N, finder); //makes sure everything is blocked, there are N*N things
 		
-		//Call the helper to shift the number to a coordinate system
-		indextoCoord(N);
-		
 		//first create an ArrayList of N^2 size
 		ArrayList<Integer> listOfCells= new ArrayList<Integer>();
 		//then add N^2 numbers to the ArrayList
 		for (int r=0; r< N*N ; r++) {
-			listOfCells.add(r);	
+			listOfCells.add(r);
+		}
+		
+		//then create a way to translate the element number to a coordinate (x,y)
+		ArrayList<Integer[]> coordArray = new ArrayList<Integer[]>();
+		for (int x=0; x<N; x++) {
+			for (int y=0; y<N; y++) {
+				Integer[] point = new Integer[2];
+				point[0]=x; point[1]=y;
+				coordArray.add(point);
+				//System.out.println("point is " + Arrays.toString(point));
+			}	
 		}
 		//then randomize the list
 		Collections.shuffle(listOfCells, ourRandom);
 		System.out.println(listOfCells);
 		
+		
 		//iterate over this list until it percolates
-		while(!perc.percolates()) {
+		Integer[] coordinate = new Integer[2];
 			for (int cells: listOfCells) { //make sure it's going through the randomized list
-				coordinates = myMap.get(cells); //then fill coordinates with the value of the map
-				//System.out.printf("coordinates are" + Arrays.toString(coordinates));
-				perc.open(coordinates[0], coordinates[1]);
-				perc.percolates();
+				//System.out.println("Cell is " + cells);
+				coordinate=coordArray.get(cells);
+				//System.out.println("array is " + Arrays.toString(coordArray.get(cells)));
+				//System.out.println("Coordinate is " + Arrays.toString(coordinate));
+				perc.open(coordinate[0], coordinate[1]);
+				if (perc.percolates()) break;
 			}
-		}
-		percThresh[i]=perc.numberOfOpenSites()/(N*N);
+			System.out.println("i is" + i);
+			System.out.println("open sites is " + perc.numberOfOpenSites());
+			double mathN = (double) N; //type cast into a double dude so the division is not dumb and returns an integer
+		percThresh[i]=perc.numberOfOpenSites()/(mathN*mathN);
+		System.out.println("thresh is" + percThresh[i]);
+		System.out.println("N is" + N);
 		i++;
 		}
+		System.out.println(Arrays.toString(percThresh));
 	}
-	
-	//Helper method
-	public void indextoCoord(int N) {
-		//Initialize coord and map 
-		Integer[] coord = new Integer[2];
-		myMap = new HashMap<Integer,Integer[]>();
-		myMap.clear(); //makes sure the map is empty
-		//Initialize counters
-		int k=0;
-		while (k<N*N) {
-		for (int i=0; i<N-1; i++) {
-			for (int j=0; j<N-1; j++) {
-			coord[0]=i; coord[1]=j;
-			myMap.put(k, coord);
-			k++;
-			}
-		  }
-		}
-	}
+
 
 	// Methods
 	public double mean() {
@@ -111,7 +110,7 @@ public class PercolationStats {
 		
 	      //an example of running time mean
 	      double start =  System.nanoTime();
-	      PercolationStats ps = new PercolationStats(10,2);
+	      PercolationStats ps = new PercolationStats(10,20);
 	      double end =  System.nanoTime();
 	      double time =  (end-start)/1e9;
 	      System.out.printf("mean: %1.4f, time: %1.4f\n",ps.mean(),time);
