@@ -19,7 +19,7 @@ public class PercolationStats {
 
 	// Constructor will perform T experiments 
 	public PercolationStats(int N, int T) {
-		if (N<0 || T<0) throw new IllegalArgumentException("Can't do that, dude");
+		if (N<1 || T<1) throw new IllegalArgumentException("Can't do that, dude");
 		myT=T;
 		//Initialize a counter, the percThresh array and the coordinate array
 		int i = 0;
