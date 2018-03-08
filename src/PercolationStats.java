@@ -45,33 +45,23 @@ public class PercolationStats {
 				Integer[] point = new Integer[2];
 				point[0]=x; point[1]=y;
 				coordArray.add(point);
-				//System.out.println("point is " + Arrays.toString(point));
-			}	
+			}
 		}
 		//then randomize the list
 		Collections.shuffle(listOfCells, ourRandom);
-		System.out.println(listOfCells);
 		
 		
 		//iterate over this list until it percolates
 		Integer[] coordinate = new Integer[2];
 			for (int cells: listOfCells) { //make sure it's going through the randomized list
-				//System.out.println("Cell is " + cells);
 				coordinate=coordArray.get(cells);
-				//System.out.println("array is " + Arrays.toString(coordArray.get(cells)));
-				//System.out.println("Coordinate is " + Arrays.toString(coordinate));
 				perc.open(coordinate[0], coordinate[1]);
 				if (perc.percolates()) break;
 			}
-			System.out.println("i is" + i);
-			System.out.println("open sites is " + perc.numberOfOpenSites());
 			double mathN = (double) N; //type cast into a double dude so the division is not dumb and returns an integer
 		percThresh[i]=perc.numberOfOpenSites()/(mathN*mathN);
-		System.out.println("thresh is" + percThresh[i]);
-		System.out.println("N is" + N);
 		i++;
 		}
-		System.out.println(Arrays.toString(percThresh));
 	}
 
 
