@@ -27,9 +27,13 @@ public class PercolationStats {
 		
 		//Performs T experiments 
 		while (i<T) {
-		//Initialize a IPercolate Object
-		IUnionFind finder = new QuickFind();
-		IPercolate perc = new PercolationUF(N, finder); //makes sure everything is blocked, there are N*N things
+//Initialize an IPercolate Object
+		//IPercolate perc = new PercolationDFS(N);
+		IPercolate perc = new PercolationDFSFast(N);
+		//IUnionFind finder = new QuickFind();
+		//IUnionFind finder = new QuickUWPC();
+		//IPercolate perc = new PercolationUF(N, finder); //makes sure everything is blocked, there are N*N things
+
 		
 		//first create an ArrayList of N^2 size
 		ArrayList<Integer> listOfCells= new ArrayList<Integer>();
@@ -95,13 +99,45 @@ public class PercolationStats {
 	      ps = new PercolationStats(200,100); //new class instance
 	      System.out.println(ps.mean()); //get the mean
 		*/
-		
+	
+	      
 	      //an example of running time mean
-	      double start =  System.nanoTime();
-	      PercolationStats ps = new PercolationStats(10,20);
-	      double end =  System.nanoTime();
-	      double time =  (end-start)/1e9;
-	      System.out.printf("mean: %1.4f, time: %1.4f\n",ps.mean(),time);
+	      double starta =  System.nanoTime();
+	      PercolationStats as = new PercolationStats(100,25);
+	      double enda =  System.nanoTime();
+	      double timea =  (enda-starta)/1e9;
+	      System.out.printf("Test for (100,25), mean: %1.4f, stddev: %1.4f, LowerConfidence: %1.4f, UpperConfidence: %1.4f, time: %1.4f\n",as.mean(), as.stddev(), as.confidenceLow(), as.confidenceHigh(), timea);
+	      
+	      //an example of running time mean
+	      double startb =  System.nanoTime();
+	      PercolationStats bs = new PercolationStats(100,50);
+	      double endb =  System.nanoTime();
+	      double timeb =  (endb-startb)/1e9;
+	      System.out.printf("Test for (100,50), mean: %1.4f, stddev: %1.4f, LowerConfidence: %1.4f, UpperConfidence: %1.4f, time: %1.4f\n",bs.mean(), bs.stddev(), bs.confidenceLow(), bs.confidenceHigh(), timeb);
+	      
+	      //an example of running time mean
+	      double startc =  System.nanoTime();
+	      PercolationStats cs = new PercolationStats(100,100);
+	      double endc =  System.nanoTime();
+	      double timec =  (endc-startc)/1e9;
+	      System.out.printf("Test for (100,100), mean: %1.4f, stddev: %1.4f, LowerConfidence: %1.4f, UpperConfidence: %1.4f, time: %1.4f\n", cs.mean(), cs.stddev(), cs.confidenceLow(), cs.confidenceHigh(), timec);
+	      
+	      //an example of running time mean
+	      double startd =  System.nanoTime();
+	      PercolationStats ds = new PercolationStats(100,200);
+	      double endd =  System.nanoTime();
+	      double timed =  (endd-startd)/1e9;
+	      System.out.printf("Test for (100,200), mean: %1.4f, stddev: %1.4f, LowerConfidence: %1.4f, UpperConfidence: %1.4f, time: %1.4f\n",ds.mean(), ds.stddev(), ds.confidenceLow(), ds.confidenceHigh(), timed);
+	      
+	      //an example of running time mean
+	      double starte =  System.nanoTime();
+	      PercolationStats es = new PercolationStats(100,400);
+	      double ende =  System.nanoTime();
+	      double timee =  (ende-starte)/1e9;
+	      System.out.printf("Test for (100,400), mean: %1.4f, stddev: %1.4f, LowerConfidence: %1.4f, UpperConfidence: %1.4f, time: %1.4f\n",es.mean(), es.stddev(), es.confidenceLow(), es.confidenceHigh(), timee);
+	      
+
+
 
 	}	
 }

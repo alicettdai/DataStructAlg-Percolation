@@ -1,7 +1,110 @@
-Name: [firstname lastname]
-NetID: [abc123]
-Hours Spent: [Give an exact (decimal) number here]
-Consulted With: [Provide names or NetIDs of any students, TAs, or professors you consulted with on the assignment. If you did not consult with anyone, you must explicitly write NONE.]
-Resources Used: [Any books, papers, or online resources. If you did not use any outside resources, you must explicitly write NONE]
+Name: [Alice Dai]
+NetID: [ad322]
+Hours Spent: [13.5]
+Consulted With: [mkc40, ad316, aln20, and the UTA helper on Tuesday at 8PM in Soc Psych 126 whose name I forgot]
+Resources Used: [Stackexchange, and a Princeton powerpoint talking about union find methods, initially used to help understand the pre discussion, but ended up making the project easy since I understood what was going on]
 Difficulty level: [Given an integer between 1 (Very Easy) to 10 (Extremely Difficult)]
-Impressions: [Your answer here]
+%%%%
+Impressions: [Lots and lots and lots of small dumb coding mistakes that probably would've been avoided
+if I had a better basic understanding for java syntax, but there's not that much I can do about it at
+this point, the actual algorithm construction wasn't very hard, but knowing how to write it in java 
+was more challenging, like learning a foreign language kinda.]
+  %%%%
+  Question 1: Doubling the grid size 
+For PercolationDFS:
+	Test for (25,100), mean: 0.5933, stddev: 0.0414, LowerConfidence: 0.5852, UpperConfidence: 0.6014, time: 0.1294
+	Test for (50,100), mean: 0.5979, stddev: 0.0253, LowerConfidence: 0.5929, UpperConfidence: 0.6028, time: 0.5776
+	Test for (100,100), mean: 0.5911, stddev: 0.0134, LowerConfidence: 0.5885, UpperConfidence: 0.5938, time: 4.4461
+	Test for (200,100), mean: 0.5910, stddev: 0.0099, LowerConfidence: 0.5891, UpperConfidence: 0.5929, time: 69.8620
+	Test for (400,100) didn't output within 5 minutes and this is most likely because the test took too long of a time to run, so I'm choosing to not include it.
+For PercolationDFSFast:
+	Test for (25,100), mean: 0.5933, stddev: 0.0414, LowerConfidence: 0.5852, UpperConfidence: 0.6014, time: 0.0621
+	Test for (50,100), mean: 0.5979, stddev: 0.0253, LowerConfidence: 0.5929, UpperConfidence: 0.6028, time: 0.1252
+	Test for (100,100), mean: 0.5911, stddev: 0.0134, LowerConfidence: 0.5885, UpperConfidence: 0.5938, time: 0.2514
+	Test for (200,100), mean: 0.5910, stddev: 0.0099, LowerConfidence: 0.5891, UpperConfidence: 0.5929, time: 0.7842
+	Test for (400,100), mean: 0.5929, stddev: 0.0057, LowerConfidence: 0.5918, UpperConfidence: 0.5940, time: 4.1648
+For PercolationUF with QuickFind:
+	Test for (25,100), mean: 0.5933, stddev: 0.0414, LowerConfidence: 0.5852, UpperConfidence: 0.6014, time: 0.0741
+	Test for (50,100), mean: 0.5979, stddev: 0.0253, LowerConfidence: 0.5929, UpperConfidence: 0.6028, time: 0.3793
+	Test for (100,100), mean: 0.5911, stddev: 0.0134, LowerConfidence: 0.5885, UpperConfidence: 0.5938, time: 2.6548
+	Test for (200,100), mean: 0.5910, stddev: 0.0099, LowerConfidence: 0.5891, UpperConfidence: 0.5929, time: 32.2730
+	Test for (400,100) didn't output within 5 minutes and this is most likely because the test took too long of a time to run, so I'm choosing to not include it.
+For PercolationUF with QuickUWPC:
+	Test for (25,100), mean: 0.5933, stddev: 0.0414, LowerConfidence: 0.5852, UpperConfidence: 0.6014, time: 0.0427
+	Test for (50,100), mean: 0.5979, stddev: 0.0253, LowerConfidence: 0.5929, UpperConfidence: 0.6028, time: 0.0618
+	Test for (100,100), mean: 0.5911, stddev: 0.0134, LowerConfidence: 0.5885, UpperConfidence: 0.5938, time: 0.1826
+	Test for (200,100), mean: 0.5910, stddev: 0.0099, LowerConfidence: 0.5891, UpperConfidence: 0.5929, time: 0.5413
+	Test for (400,100), mean: 0.5929, stddev: 0.0057, LowerConfidence: 0.5918, UpperConfidence: 0.5940, time: 3.2526 
+Observations:
+	For PercolationDFS and PercolationUF with QuickFind, it looks like both the run times display exponential behavior while PercolationDFSFast and PercolationUF with QuickUWPC
+	display a more linear behavior. For example in QuickUWPC, doubling the N value at first (from 25 to 50) seems to not really affect run time, but once we get to larger values, 
+	doubling N triples the run time, and then when we get to really large N (400), a more quadratic pattern occurs where the run time increases 6 times the previous (N=200). For 
+	DFSFast, the behavior is linear from N=25 to N=100 where the run time is doubled, but as we iterate to larger N's, the run time becomes more scattered and is some sort of non linear
+	parabolic growth. This can be explained empirically, since runtimes are not robust measurements due to all the confounding variables inevitable to empirical analysis. 
+  %%%%
+    Question 2:Doubling the iteration size 
+For PercolationDFS:
+	Test for (100,25), mean: 0.5928, stddev: 0.0149, LowerConfidence: 0.5869, UpperConfidence: 0.5986, time: 1.2452
+	Test for (100,50), mean: 0.5958, stddev: 0.0165, LowerConfidence: 0.5912, UpperConfidence: 0.6003, time: 2.1879
+	Test for (100,100), mean: 0.5915, stddev: 0.0168, LowerConfidence: 0.5882, UpperConfidence: 0.5948, time: 4.5440
+	Test for (100,200), mean: 0.5931, stddev: 0.0177, LowerConfidence: 0.5906, UpperConfidence: 0.5956, time: 9.1299
+	Test for (100,400), mean: 0.5927, stddev: 0.0153, LowerConfidence: 0.5912, UpperConfidence: 0.5942, time: 17.8094
+For Percolation DFSFast:
+	Test for (100,25), mean: 0.5928, stddev: 0.0149, LowerConfidence: 0.5869, UpperConfidence: 0.5986, time: 0.1738
+	Test for (100,50), mean: 0.5958, stddev: 0.0165, LowerConfidence: 0.5912, UpperConfidence: 0.6003, time: 0.1295
+	Test for (100,100), mean: 0.5915, stddev: 0.0168, LowerConfidence: 0.5882, UpperConfidence: 0.5948, time: 0.2186
+	Test for (100,200), mean: 0.5931, stddev: 0.0177, LowerConfidence: 0.5906, UpperConfidence: 0.5956, time: 0.2937
+	Test for (100,400), mean: 0.5927, stddev: 0.0153, LowerConfidence: 0.5912, UpperConfidence: 0.5942, time: 0.4297
+For PercolationUF with QuickFind:
+	Test for (100,25), mean: 0.5928, stddev: 0.0149, LowerConfidence: 0.5869, UpperConfidence: 0.5986, time: 1.4952
+	Test for (100,50), mean: 0.5958, stddev: 0.0165, LowerConfidence: 0.5912, UpperConfidence: 0.6003, time: 3.0475
+	Test for (100,100), mean: 0.5915, stddev: 0.0168, LowerConfidence: 0.5882, UpperConfidence: 0.5948, time: 5.5119
+	Test for (100,200), mean: 0.5931, stddev: 0.0177, LowerConfidence: 0.5906, UpperConfidence: 0.5956, time: 11.0829
+	Test for (100,400), mean: 0.5927, stddev: 0.0153, LowerConfidence: 0.5912, UpperConfidence: 0.5942, time: 22.9098
+For PercolationUF with QuickUWPC:
+	Test for (100,25), mean: 0.5928, stddev: 0.0149, LowerConfidence: 0.5869, UpperConfidence: 0.5986, time: 0.1021
+	Test for (100,50), mean: 0.5958, stddev: 0.0165, LowerConfidence: 0.5912, UpperConfidence: 0.6003, time: 0.0956
+	Test for (100,100), mean: 0.5915, stddev: 0.0168, LowerConfidence: 0.5882, UpperConfidence: 0.5948, time: 0.1378
+	Test for (100,200), mean: 0.5931, stddev: 0.0177, LowerConfidence: 0.5906, UpperConfidence: 0.5956, time: 0.2134
+	Test for (100,400), mean: 0.5927, stddev: 0.0153, LowerConfidence: 0.5912, UpperConfidence: 0.5942, time: 0.5552
+Observations:
+	For PercolationDFS and PercolationUF with QuickFind, it looks like the run time relationship is linear where a doubling in T also doubles the run time. 
+	For DFSFast and PercolationUF QuickUWPC, the runtime vs. T relationship is less straightforward since for both methods, T=50 is faster than T=25, when you would 
+	think that the latter would be faster. But this is ok since runtimes are themselves variable, based on the machine and other empirical factors. However, more or 
+	less there seems to be a linear relationship (doubling T yields doubling runtime) between T and runtime as T gets larger and the runtimes are more differentiable 
+	between different T values. This is good for analysis later on since N affects runtimes across methods more than T does. It's also good to notice that for both Q1 
+	and Q2, the mean, standard deviation, and confidence levels are all within ±0.01 or ±0.001 of each other, pretty much, which means that the code for the different 
+	methods are running smoothly and consistently which lends these stats values more credibility and robustness. 
+  %%%%
+    Question 3: Make predictions for Big(O) in terms of N and T
+Taking information from Questions 1 and 2
+All the data that I plotted to help answer this question can be found on googldocs: https://docs.google.com/spreadsheets/d/16VKb52rikWYHRgGomDTR93cqC5dc3dkq4fKYGmzLZx8/edit?usp=sharing
+	Big(O) for PercolationDFS: 
+	When N doubles, the runtime between N=25 to N=50 increases by 4, then from N=50 to N=100 runtime increases by 8, then from N=100 to N=200 runtime increases by 16.
+	When thinking about the runtime in relation to N and T, O(T*N^3). When graphing data from Q1, the numbers best fit an exponential, except for Big Oh purposes 
+	exponential fits aren't very helpful, so I chose a power series instead with an R^2 of 0.98, and the power is 3. Because changing T is relatively linear to the run time, 
+	the most reasonable Big Oh can get rid of the T, so the Big Oh and the runtime estimate is O(N^3). 
+	Big(O) for  PercolationDFSFast: 
+	Using the same method from getting Big(O) PercolationDFS, I modelled data from Q1 linearly and found an R^2 of 0.97. So this is ok evidence to show that Big O runtime 
+	is linear, O(NT), and depends on both grid size and number of runs since both display linear behavior.
+	Big(O) for  PercolationUF with QuickFind: 
+	Similar to the answer in PercolationDFS, Big Oh of PercolationUF with QuickFind is exponential, but I modelled in power form and found that the Big Oh is most reasonably O(T*N^3) as well
+	since the power series modelled has an R^2 of 0.991. Because T is linear while N is exponential/power, I throw out T again, and runtime is O(N^3).
+	Big(O) for  PercolationUF with QuickUWPC: 
+	Same thinking as DFSFast. I got an R^2 of 0.97 (throwing out N=400 since empirically the data starts going more towards an exponential behavior at large N's), and runtime should be O(NT)
+  %%%%
+    Question 4: Largest grid size able to run in a day for N trials and T=100
+I extrapolated data from the graphs I made in Q3 to see what the N value is when T=100 at runtime of 86400 seconds (which is the number of seconds in a day). 
+This is essentially taking the inverse of the fit equation to solve for N. 
+For PercolationDFS N=2340
+For PercolationDFSFast N=20669877 but this is assuming that even for large N, runtime is linear. This is obviously empirically unlikely, but might be ok mathematically. 
+For PercolationUF with QuickFind: N=3263
+For PercolationUF with QuickUWPC: N=2218094 but this is assuming that even for large N, runtime is linear. This is obviously empirically unlikely, but might be ok mathematically.
+  %%%%
+    Question 5: For PercolationUF vs. PercolationDFS, give estimate for how much memory is used in terms of N, the grid-size.
+For PercolationDFS: 
+	The int grid in PercolationDFS of size N takes memory of 4N bytes per array, and there are N arrays so the memory is 4N*N bytes. 
+For PercolationUF: 
+	The boolean grid in PercolationUF of size N takes memory of 1N bytes per array, and there are N arrays so the memory is N*N. 
+  %%%%
+  
