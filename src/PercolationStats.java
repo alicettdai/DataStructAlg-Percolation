@@ -29,10 +29,10 @@ public class PercolationStats {
 		while (i<T) {
 //Initialize an IPercolate Object
 		//IPercolate perc = new PercolationDFS(N);
-		IPercolate perc = new PercolationDFSFast(N);
+		//IPercolate perc = new PercolationDFSFast(N);
 		//IUnionFind finder = new QuickFind();
-		//IUnionFind finder = new QuickUWPC();
-		//IPercolate perc = new PercolationUF(N, finder); //makes sure everything is blocked, there are N*N things
+		IUnionFind finder = new QuickUWPC();
+		IPercolate perc = new PercolationUF(N, finder); //makes sure everything is blocked, there are N*N things
 
 		
 		//first create an ArrayList of N^2 size
