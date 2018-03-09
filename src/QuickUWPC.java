@@ -1,4 +1,5 @@
-	//notice how we don't have coordinate points now, the elements are already indexed 
+//@author Alice Dai
+//notice how we don't have coordinate points now, the elements are already indexed 
 
 public class QuickUWPC implements IUnionFind {
 	//instance variables 

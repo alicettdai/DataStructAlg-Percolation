@@ -1,3 +1,4 @@
+//@author Alice Dai
 import java.util.*;
 
 /**
@@ -8,6 +9,7 @@ import java.util.*;
  * @author Kevin Wayne
  * @author Jeff Forbes
  * @author Josh Hug
+ * @author Alice Dai
  */
 
 public class PercolationStats {

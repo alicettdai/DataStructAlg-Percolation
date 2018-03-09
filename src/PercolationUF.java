@@ -13,7 +13,7 @@
  * 
  * @author Owen Astrachan
  * @author Jeff Forbes
- *
+ * @author Alice Dai
  */
 
 public class PercolationUF implements IPercolate {

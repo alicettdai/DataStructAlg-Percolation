@@ -1,3 +1,5 @@
+//@author Alice Dai
+
 public class PercolationDFSFast extends PercolationDFS {
 	
 	//A constructor that makes a call to the superclass constructor
