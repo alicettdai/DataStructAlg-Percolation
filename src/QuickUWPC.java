@@ -5,19 +5,15 @@ public class QuickUWPC implements IUnionFind {
 	//instance variables 
 	private int[] parent;
 	private int[] size;
-	private int myComponents;
-	
+	private int myComponents;	
 	//constructors 
 	public QuickUWPC() {
 		this(10);
-	}
-	
+	}	
 	public QuickUWPC(int numSets) {
 		initialize(numSets);
-	}
-	
+	}	
 	//methods
-	
 	//initializes variables, and makes sure the components are only connected to themselves 
 	@Override
 	public void initialize(int n) {
@@ -29,13 +25,11 @@ public class QuickUWPC implements IUnionFind {
             size[i] = 1;
 		}	
 	}
-
 	//return number of components
 	@Override
 	public int components() {
 		return myComponents;
 	}
-
 	//finds the ROOT of the element, make sure that's what it does
 	@Override
 	public int find(int x) {
@@ -47,20 +41,17 @@ public class QuickUWPC implements IUnionFind {
 			x=parent[x];
 			return x; //but you ultimately want the root, and the while loop ensures that
 	}
-
 	//asks if the two elements have the same component
 	@Override
 	public boolean connected(int p, int q) {
 		return find(p)==find(q);
 	}
-
 	//always want to merge the smaller set to the larger set
 	@Override
 	public void union(int p, int q) {
 		int rootP = find(p);
         int rootQ = find(q);
         if (rootP == rootQ) return; // they already have the same root
-
         // make smaller root point to larger one
         if (size[rootP] < size[rootQ]) { 
             parent[rootP] = rootQ;
@@ -70,11 +61,9 @@ public class QuickUWPC implements IUnionFind {
             parent[rootQ] = rootP;
             size[rootP] += size[rootQ];
         }
-		
 		//every time there's a union there's one less component
 		myComponents--;	
 	}
-	
 	//helper methods
 	private void validate(int p) {
 		int n = parent.length;

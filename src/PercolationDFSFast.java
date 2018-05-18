@@ -6,7 +6,6 @@ public class PercolationDFSFast extends PercolationDFS {
 	public PercolationDFSFast(int n) {
 	super(n);
 	}
-
 	//Update on open should just check if the cells around the newly opened cell are open 
 	@Override
 	protected void updateOnOpen(int row, int col) {
@@ -15,7 +14,6 @@ public class PercolationDFSFast extends PercolationDFS {
 		if (! inBounds(row,col)) {
 	        throw new IndexOutOfBoundsException("Out of bounds, mate");
 		}
-		
 		//if it's on the top then it definitely is full
 		if (row==0) {
 			myGrid[row][col]	 = FULL;
@@ -25,9 +23,8 @@ public class PercolationDFSFast extends PercolationDFS {
 			dfs(row, col + 1);
 			dfs(row + 1, col);
 		}
-		
-		
-		//then see if one of the surroundings is full, if it is then the row and column is full, and then if it itself becomes full, then its surroundings are all full
+		//then see if one of the surroundings is full, if it is then the row and column is full, 
+		//and then if it itself becomes full, then its surroundings are all full
 		else {
 			if (inBounds(row-1,col) && isFull(row-1,col) ){
 			myGrid[row][col]= FULL;
@@ -60,17 +57,14 @@ public class PercolationDFSFast extends PercolationDFS {
 			}
 		}	
 	}
-	
 	@Override
 	public void open(int row, int col) {
 		//if not in bounds, throw an exception
 		if (! inBounds(row,col)) {
 			throw new IndexOutOfBoundsException("Out of bounds, mate");
 	    }
-	    super.open(row, col); 
-		
+	    super.open(row, col);		
 	}
-
 	@Override
 	public boolean isOpen(int row, int col)  {
 		//if not in bounds, throw an exception
@@ -79,7 +73,6 @@ public class PercolationDFSFast extends PercolationDFS {
 	    }
 	    return super.isOpen(row, col);
 	}
-
 	@Override
 	public boolean isFull(int row, int col) {
 		//if not in bounds, throw an exception

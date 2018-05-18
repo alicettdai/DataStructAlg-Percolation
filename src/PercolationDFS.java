@@ -21,7 +21,6 @@ public class PercolationDFS implements IPercolate {
 	protected int myOpenCount;
 	/**
 	 * Initialize a grid so that all cells are blocked.
-	 * 
 	 * @param n
 	 *            is the size of the simulated (square) grid
 	 */
@@ -31,27 +30,23 @@ public class PercolationDFS implements IPercolate {
 		for (int[] row : myGrid)
 			Arrays.fill(row, BLOCKED);
 	}
-
 	public void open(int row, int col) {
 		if (myGrid[row][col] != BLOCKED)
 			return;
 		myOpenCount += 1;
 		myGrid[row][col] = OPEN;
 		if (row == 0) {
-			myGrid[row][col]	 = FULL;
+			myGrid[row][col] = FULL;
 		}
-		updateOnOpen(row,col);
+		updateOnOpen(row, col);
 	}
-
 	public boolean isOpen(int row, int col) {
 		return myGrid[row][col] != BLOCKED;
 	}
-
 	public boolean isFull(int row, int col) {
 		return myGrid[row][col] == FULL;
 	}
-
-	private void clearFull() {
+	private void clearFull() { // this still makes sure that if it's blocked, it's blocked
 		for (int i = 0; i < myGrid.length; i++) {
 			for (int j = 0; j < myGrid[0].length; j++) {
 				if (myGrid[i][j] == FULL) {
@@ -60,24 +55,20 @@ public class PercolationDFS implements IPercolate {
 			}
 		}
 	}
-
 	protected void updateOnOpen(int row, int col) {
-		clearFull();
+		clearFull(); // clears all the full grides into open ones
 		for (int k = 0; k < myGrid[0].length; k++)
-			dfs(0, k); //ON THE FIRST ROW
+			dfs(0, k); // ON THE FIRST ROW
 	}
-
 	public boolean percolates() {
 		for (int col = 0; col < myGrid[myGrid.length - 1].length; col++)
 			if (isFull(myGrid.length - 1, col))
 				return true;
 		return false;
 	}
-
 	/**
 	 * Private helper method to mark all cells that are open and reachable from
 	 * (row,col).
-	 * 
 	 * @param row
 	 *            is the row coordinate of the cell being checked/marked
 	 * @param col
@@ -85,34 +76,35 @@ public class PercolationDFS implements IPercolate {
 	 */
 	protected void dfs(int row, int col) {
 		// out of bounds?
-		if (! inBounds(row,col)) return;
-		
+		if (!inBounds(row, col))
+			return;
 		// full or not open, don't process
 		if (isFull(row, col) || !isOpen(row, col))
 			return;
-		
-		//this leaves us with a point that's in bounds, is not full, but is open, and is definitely next to something that's open
+		// this leaves us with a point that's in bounds, is not full, but is open, and
+		// is definitely next to something that's open, or it's in the first row
 		myGrid[row][col] = FULL;
-		dfs(row - 1, col); //then checks the surrounding ones
+		dfs(row - 1, col); // then checks the surrounding ones
 		dfs(row, col - 1);
 		dfs(row, col + 1);
 		dfs(row + 1, col);
 	}
-
 	public int numberOfOpenSites() {
 		return myOpenCount;
 	}
-	
 	/**
 	 * Determine if (row,col) is valid for given grid
-	 * @param row specifies row
-	 * @param col specifies column
+	 * @param row
+	 *            specifies row
+	 * @param col
+	 *            specifies column
 	 * @return true if (row,col) on grid, false otherwise
 	 */
 	protected boolean inBounds(int row, int col) {
-		if (row < 0 || row >= myGrid.length) return false;
-		if (col < 0 || col >= myGrid[0].length) return false;
+		if (row < 0 || row >= myGrid.length)
+			return false;
+		if (col < 0 || col >= myGrid[0].length)
+			return false;
 		return true;
 	}
-
 }

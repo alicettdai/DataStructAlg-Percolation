@@ -26,7 +26,6 @@ public class PercolationUF implements IPercolate {
 	private IUnionFind myFinder;
 	private final int VTOP; //the top number that doesn't interfere with the indices
 	private final int VBOTTOM; // the bottom number that doesn't interfere with the indices 
-
 	/**
 	 * Constructs a Percolation object for a nxn grid that that creates
 	 * a IUnionFind object to determine whether cells are full
@@ -46,14 +45,10 @@ public class PercolationUF implements IPercolate {
 				myGrid[i][j]= false; 
 			}	
 		}
-					
-		
 		finder.initialize(dim*dim+2); //initializes the size of finder, and makes all the elements connected to ONLY themselves 
 		myFinder= finder; //assign the object finder to the instance variable myFinder 
 		myOpenCount=0;	
 	}	
-	
-
 	/**
 	 * Return an index that uniquely identifies (row,col), typically an index
 	 * based on row-major ordering of cells in a two-dimensional grid. However,
@@ -64,10 +59,8 @@ public class PercolationUF implements IPercolate {
 			return OUT_BOUNDS;
 		}
 		int index = (dim*row)+col;
-		return index;
-		
+		return index;	
 	}
-
 	@Override
 	public void open(int i, int j) {
 		if (! inBounds(i,j)) {
@@ -81,17 +74,14 @@ public class PercolationUF implements IPercolate {
 		myOpenCount++; //adds one to the count
 		updateOnOpen(i,j);
 	}
-
 	@Override
 	public boolean isOpen(int i, int j) {
 		if (! inBounds(i,j)) {
 			throw new IndexOutOfBoundsException("Out of bounds, mate");
 		}
-		
 		//if it's open then it's true
 		return myGrid[i][j];
 	}
-
 	@Override
 	public boolean isFull(int i, int j) {
 		if (! inBounds(i,j)) {
@@ -107,32 +97,27 @@ public class PercolationUF implements IPercolate {
 		//is the coordinate unioned with the top
 		return myFinder.connected(x, VTOP);
 	}
-
 	@Override
 	public int numberOfOpenSites() {
 		return myOpenCount;
 	}
-
 	@Override
 	public boolean percolates() {
 		//checks to see if VTOP is connected to VBOTTOM
 		return myFinder.connected(VTOP,VBOTTOM);
-	}
-	
+	}	
 	//helper method that is called in open
 	private void updateOnOpen(int row, int col) {
 		//get the Indices 
-		int x = getIndex(row,col);
-		
-		//check if the point is in the first or last row, and also if the surrounding neighbors are open, and if they are, then the bounds should be 
+		int x = getIndex(row,col);	
+		//check if the point is in the first or last row, and also if the surrounding neighbors are open,
+		//and if they are, then the bounds should be 
 		if (row == 0) { //on top
 			myFinder.union(x,VTOP);
-		}
-		
+		}	
 		if (row == maxRCIndex) { //on bottom
 			myFinder.union(x,VBOTTOM);
-		}
-		
+		}	
 		if (inBounds(row-1,col) && isOpen(row-1,col)){
 			int y=getIndex(row-1,col);
 			myFinder.union(x,y);
@@ -141,18 +126,15 @@ public class PercolationUF implements IPercolate {
 			int y=getIndex(row,col-1);
 			myFinder.union(x,y);	
 		}
-		
 		if (inBounds(row, col + 1) && isOpen(row, col + 1)){
 			int y=getIndex(row,col+1);
 			myFinder.union(x,y);
 		}
-		
 		if (inBounds(row + 1, col) && isOpen(row + 1, col)){
 			int y=getIndex(row+1,col);
 			myFinder.union(x,y);	
 		}
 	}
-	
 	private boolean inBounds(int row, int col) {
 		if (row < 0 || row >= myGrid.length) return false;
 		if (col < 0 || col >= myGrid[0].length) return false;
